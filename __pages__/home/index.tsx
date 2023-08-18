@@ -1,9 +1,11 @@
 import React from 'react';
-// import "./index.scss";
 import { Menu, Spin } from 'antd';
 import type { NextPage } from 'next';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import axios from 'axios';
+import ListItem from './listingItem';
 import market from '../../public/market.svg';
 import user from '../../public/user-solid.svg';
 import location from '../../public/location-crosshairs-solid.svg';
@@ -16,8 +18,43 @@ import SafeInformation from './components/safeinformation';
 
 import { useFetchSafe } from 'hooks/safe/usefetchsafe';
 
+interface ListItemProps {
+  data: object; 
+}
+
 const antIcon = <LoadingOutlined style={{ fontSize: 42 }} spin />;
-const Home: NextPage = () => {
+function Home ({ data }:  ListItemProps) {
+
+
+  // const getData = async (): Promise<any> => {
+  //   try {
+
+  //     // const datum = {
+  //     //   "page": 1,
+  //     //   "limit": 5,
+  //     //   "category": "string"
+  //     // }
+
+  //     const res = await axios.post(`http://165.227.169.25:3000/api/bets/bycategory`, datum, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     // console.log(res.data.data.docs)
+  //     // return (res.data.data.docs);
+  //     setData(res.data.data.docs);
+
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+
+  // }
+
+  // useEffect(() => {
+  //   getData()
+  // }, []);
+
+  // console.log(data)
 
   return (
     <div className='container'>
@@ -55,7 +92,7 @@ const Home: NextPage = () => {
                 <Image
                   width={12}
                   height={15}
-                  src={user}
+                  src={data.nft.image}
                   alt='user tag'
                 ></Image>
                 <p className='userListing'>Owner 0x</p>
@@ -78,47 +115,7 @@ const Home: NextPage = () => {
                   alt='location icon'
                 ></Image>
                 <p className='addressListing'>0x2a6ee3dff4e57a46d6cc7e</p>
-                </div>
-            </div>
-          </div>
-
-          <div className="cardListing">
-            <div className="imageListingDiv"></div>
-            <div className="infoListingDiv">
-              <p>Bored Ape</p>
-              <p>Owner:</p>
-              <p>Nft prediction of MLS winning the league and Messi as the highest goal scorer.</p>
-              <p>0x2a6ee3dff4e57a46d6cc7e</p>
-            </div>
-          </div>
-
-          <div className="cardListing">
-            <div className="imageListingDiv"></div>
-            <div className="infoListingDiv">
-              <p>Bored Ape</p>
-              <p>Owner:</p>
-              <p>Nft prediction of MLS winning the league and Messi as the highest goal scorer.</p>
-              <p>0x2a6ee3dff4e57a46d6cc7e</p>
-            </div>
-          </div>
-
-          <div className="cardListing">
-            <div className="imageListingDiv"></div>
-            <div className="infoListingDiv">
-              <p>Bored Ape</p>
-              <p>Owner:</p>
-              <p>Nft prediction of MLS winning the league and Messi as the highest goal scorer.</p>
-              <p>0x2a6ee3dff4e57a46d6cc7e</p>
-            </div>
-          </div>
-
-          <div className="cardListing">
-            <div className="imageListingDiv"></div>
-            <div className="infoListingDiv">
-              <p>Bored Ape</p>
-              <p>Owner:</p>
-              <p>Nft prediction of MLS winning the league and Messi as the highest goal scorer.</p>
-              <p>0x2a6ee3dff4e57a46d6cc7e</p>
+              </div>
             </div>
           </div>
         </div>
@@ -126,5 +123,27 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const datum = {
+    "page": 1,
+    "limit": 5,
+    "category": "string"
+  }
+
+  const res = await axios.post(`http://165.227.169.25:3000/api/bets/bycategory`, datum, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data: object = await res.data.data.docs.json();
+
+  return {
+    props: {
+      data
+    }
+  };
+}
 
 export default Home;
