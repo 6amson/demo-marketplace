@@ -1,0 +1,157 @@
+@import "../../styles/variables.scss";
+
+.container {
+    border: solid 1px #4e4242;
+    border-radius: 4px;
+    width: max-width;
+    font-family: sans-serif;
+    font-family: $mainFont;
+    height: calc(550px);
+    overflow-y: hidden;
+    position: relative;
+    display: flex;
+
+    .sidebarProfile {
+        width: 200px;
+        background: rgb(255, 253, 253);
+        border: solid 2px $dark-charcoal;
+        border-right: solid 1px #4e4242;
+        height: inherit;
+        padding: 10px;
+        // margin-right: 5px;
+        position: relative;
+
+        .innerSidebarProfile {
+            position: relative;
+            div {
+                display: flex;
+                padding-left: 10px;
+                width: 90%;
+
+                p {
+                    margin-left: 10px;
+                }
+            }
+
+            div:first-child {
+                position: relative;
+                // margin-bottom: 300px;
+                font-size: 14px;
+                border: solid 0px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.listingProfile {
+    background: rgb(255, 253, 253);
+    border: solid 2px $dark-charcoal;
+    overflow-y: scroll;
+    width: 100%;
+    padding: 10px;
+
+    .innerListingProfile {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-row-gap: 30px;
+        grid-column-gap: 60px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cardListing {
+        // background: orange;
+        height: 350px;
+        padding: 5px;
+        background: rgba(207, 197, 197, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(8, 7, 7, 0.18);
+
+        .imageListingDiv {
+            background: url("../../public/nft.png");
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .infoListingDiv {
+            font-size: 14px;
+            margin-top: 5px;
+
+            div {
+                display: flex;
+                p {
+                    margin-block-start: 0em;
+                    margin-block-end: 0em;
+                    display: flex;
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}
+
+.tagListing{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.userListing{
+    // font-size: 16px;
+    // font-weight: 600;
+}
+
+.infoListing, .addressListing{
+    // font-weight: 600;
+}
+
+/***********************MEDIA QUERY************************************/
+
+@media (max-width: 890px) {
+    .container {
+        height: calc(470px);
+        .sidebarProfile {
+            width: 40px;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+
+            .innerSidebarProfile {
+                div {
+                    display: flex;
+                    padding-left: 0;
+                    width: 90%;
+
+                    p {
+                        font-size: 14px;
+                        margin-left: 0;
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        .sidebarProfile {
+            .innerSidebarProfile {
+                div {
+                    display: flex;
+                    padding-left: 0;
+                    width: 90%;
+
+                    p {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

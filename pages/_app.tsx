@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import { Web3ReactProvider } from '@web3-react/core';
 import { toast, ToastContainer } from 'react-toastify';
 import '../styles/globals.scss';
-
+import '../__pages__/home/index.scss'
 const DEFAULT_WAIT = 500;
 const reloadPage = () => {
   setTimeout(() => {
