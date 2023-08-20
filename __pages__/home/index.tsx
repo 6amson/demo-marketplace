@@ -11,6 +11,7 @@ import user from '../../public/user-solid.svg';
 import location from '../../public/location-crosshairs-solid.svg';
 import tag from '../../public/tags-solid.svg';
 import info from '../../public/circle-info-solid.svg';
+import getData from './getdata';
 
 
 import NoSafe from 'components/nosafe';
@@ -18,22 +19,19 @@ import SafeInformation from './components/safeinformation';
 
 import { useFetchSafe } from 'hooks/safe/usefetchsafe';
 
-interface ListItemProps {
-  data: object; 
-}
+// const antIcon = <LoadingOutlined style={{ fontSize: 42 }} spin />;
+const Home: NextPage = () => {
 
-const antIcon = <LoadingOutlined style={{ fontSize: 42 }} spin />;
-function Home ({ data }:  ListItemProps) {
-
+  const [data, setData] = useState({});
 
   // const getData = async (): Promise<any> => {
   //   try {
 
-  //     // const datum = {
-  //     //   "page": 1,
-  //     //   "limit": 5,
-  //     //   "category": "string"
-  //     // }
+  //     const datum = {
+  //       "page": 1,
+  //       "limit": 5,
+  //       "category": "string"
+  //     }
 
   //     const res = await axios.post(`http://165.227.169.25:3000/api/bets/bycategory`, datum, {
   //       headers: {
@@ -42,7 +40,9 @@ function Home ({ data }:  ListItemProps) {
   //     });
   //     // console.log(res.data.data.docs)
   //     // return (res.data.data.docs);
-  //     setData(res.data.data.docs);
+  //     // setData(res.data.data.docs);
+  //     // console.log(res.data.data.docs);
+  //     return res;
 
   //   } catch (err) {
   //     console.log(err)
@@ -50,11 +50,14 @@ function Home ({ data }:  ListItemProps) {
 
   // }
 
-  // useEffect(() => {
-  //   getData()
-  // }, []);
+  useEffect(() => {
+    getData().then(data => setData(data.data.data.docs))
+    .catch(err => console.log(err));
 
-  // console.log(data)
+
+  }, []);
+
+  console.log(data)
 
   return (
     <div className='container'>
@@ -75,7 +78,13 @@ function Home ({ data }:  ListItemProps) {
       </div>
       <div className="listingProfile">
         <div className="innerListingProfile">
-          <div className="cardListing">
+          {
+            <ListItem />
+          }
+
+{/* <ListItem/> */}
+
+          {/* <div className="cardListing">
             <div className="imageListingDiv"></div>
             <div className="infoListingDiv">
               <div>
@@ -92,7 +101,7 @@ function Home ({ data }:  ListItemProps) {
                 <Image
                   width={12}
                   height={15}
-                  src={data.nft.image}
+                  src={user}
                   alt='user tag'
                 ></Image>
                 <p className='userListing'>Owner 0x</p>
@@ -115,35 +124,29 @@ function Home ({ data }:  ListItemProps) {
                   alt='location icon'
                 ></Image>
                 <p className='addressListing'>0x2a6ee3dff4e57a46d6cc7e</p>
-              </div>
+                </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export async function getStaticProps() {
-  const datum = {
-    "page": 1,
-    "limit": 5,
-    "category": "string"
-  }
+// export async function getStaticProps() {
+//   // Fetch data from an API, database, or other sources
+//   const res = await axios.post(`http://165.227.169.25:3000/api/bets/bycategory`, datum, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
 
-  const res = await axios.post(`http://165.227.169.25:3000/api/bets/bycategory`, datum, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  const data: object = await res.data.data.docs.json();
-
-  return {
-    props: {
-      data
-    }
-  };
-}
+//   // Pass the fetched data as props to the page component
+//   return {
+//     props: {
+//       data
+//     }
+//   };
+// }
 
 export default Home;
